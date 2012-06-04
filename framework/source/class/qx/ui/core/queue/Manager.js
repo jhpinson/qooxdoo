@@ -324,9 +324,12 @@ qx.Class.define("qx.ui.core.queue.Manager",
     qx.html.Element._scheduleFlush = statics.scheduleFlush;
 
     // Register to user action
-    qx.event.Registration.addListener(window, "useraction",
+    /*qx.event.Registration.addListener(window, "useraction",
       qx.core.Environment.get("event.touch") ?
         statics.__onUserAction : statics.flush
+    );*/
+    qx.event.Registration.addListener(window, "useraction",
+      statics.flush
     );
   }
 });
