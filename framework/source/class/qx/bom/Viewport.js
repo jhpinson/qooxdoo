@@ -230,7 +230,7 @@ qx.Bootstrap.define("qx.bom.Viewport",
     getOrientation : function(win)
     {
       // Set window.top as default, because orientationChange event is only fired top window
-      var win = win||window.top;
+      var win = win||window;
       // The orientation property of window does not have the same behaviour over all devices
       // iPad has 0degrees = Portrait, Playbook has 90degrees = Portrait, same for Android Honeycomb
       //
@@ -238,7 +238,10 @@ qx.Bootstrap.define("qx.bom.Viewport",
       //
       // The calculation of getWidth and getHeight returns wrong values if you are in an input field
       // on iPad and rotate your device!
-      var orientation = win.orientation;
+      //
+      // [Bug #6501] In case of using "ios" and running application in an iframe win.orientation don't
+      //  provide proper data. Because just top frame just handle orientation and resize on IOS
+      var orientation = (qx.core.Environment.get("os.name") == "ios" && window != window.top) ? null : win.orientation;
       if (orientation == null) {
         // Calculate orientation from window width and window height
         orientation = this.getWidth(win) > this.getHeight(win) ? 90 : 0;
