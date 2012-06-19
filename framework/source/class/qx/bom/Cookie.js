@@ -46,7 +46,7 @@ qx.Bootstrap.define("qx.bom.Cookie",
      */
     get : function(key)
     {
-      var start = document.cookie.indexOf(key + "=");
+      var start = document.cookie.lastIndexOf(key + "=");
       var len = start + key.length + 1;
 
       if ((!start) && (key != document.cookie.substring(0, key.length))) {
