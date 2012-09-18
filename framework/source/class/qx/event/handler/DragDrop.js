@@ -201,7 +201,7 @@ qx.Class.define("qx.event.handler.DragDrop",
     getData : function(type)
     {
       if (!this.__validDrop || !this.__dropTarget) {
-        throw new Error("This method must not be used outside the drop event listener!");
+        //throw new Error("This method must not be used outside the drop event listener!");
       }
 
       if (!this.__types[type]) {
