@@ -561,7 +561,7 @@ qx.Class.define("qx.event.handler.Mouse",
             if (target !== this.__lastMouseDownTarget)
             {
               var commonParent = qx.dom.Hierarchy.getCommonParent(target, this.__lastMouseDownTarget);
-              if (commonParent) {
+              if (commonParent && !domEvent.defaultPrevented) {
                 this.__fireEvent(domEvent, "click", commonParent);
               }
             }
