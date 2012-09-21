@@ -666,12 +666,8 @@ qx.Class.define("qx.event.handler.DragDrop",
         this.__validDrop = true;
         this.__detectAction();
         
-        qx.event.Timer.once(function() {
-          this.__validDrop = this.__fireEvent("dragover", dropable, this.__dragTarget, true, e);
-          
-  
-          this.__detectAction();
-        }, this, 0);
+        this.__validDrop = this.__fireEvent("dragover", dropable, this.__dragTarget, true, e);
+        this.__detectAction();
       }
     },
 
