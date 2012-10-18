@@ -660,7 +660,8 @@ qx.Class.define("qx.event.handler.DragDrop",
     {
       var target = e.getTarget();
       var dropable = this.__findDroppable(target);
-      if (dropable && dropable != this.__dropTarget)
+      var isCursor = this.__isCursor(e.getRelatedTarget());
+      if (!isCursor && dropable && dropable != this.__dropTarget)
       {
         this.__dropTarget = dropable;
         this.__validDrop = true;
@@ -681,8 +682,10 @@ qx.Class.define("qx.event.handler.DragDrop",
     {
       var dropable = this.__findDroppable(e.getTarget());
       var newDropable = this.__findDroppable(e.getRelatedTarget());
+      
+      var isCursor = this.__isCursor(e.getRelatedTarget());
 
-      if (dropable && dropable !== newDropable && dropable == this.__dropTarget)
+      if (!isCursor && dropable && dropable !== newDropable && dropable == this.__dropTarget)
       {
         this.__fireEvent("dragleave", this.__dropTarget, newDropable, false, e);
         this.__dropTarget = null;
@@ -690,12 +693,22 @@ qx.Class.define("qx.event.handler.DragDrop",
 
         qx.event.Timer.once(this.__detectAction, this, 0);
       }
-    }
+    },
+    
+    __isCursor : function(elem)
+    {
+      while (elem && elem.nodeType == 1)
+      {
+        if (elem.getAttribute("dragcursor") == "on") {
+          return true;
+        }
+
+        elem = elem.parentNode;
+      }
+      return false;
+    },
   },
-
-
-
-
+  
   /*
   *****************************************************************************
      DESTRUCTOR
