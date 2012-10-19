@@ -706,7 +706,7 @@ qx.Class.define("qx.event.handler.DragDrop",
         elem = elem.parentNode;
       }
       return false;
-    },
+    }
   },
   
   /*
